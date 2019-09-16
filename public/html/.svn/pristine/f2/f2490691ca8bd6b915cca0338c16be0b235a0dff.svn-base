@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>AVCON运维管理系统</title>
+    <link rel="stylesheet" href="../font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/basic.css">
+    <link rel="stylesheet" href="../css/alarm-manage.css">
+    <script src="../js/const-defined.js"></script>
+    <script src="../js/scroll-bar.js"></script>
+    <script src="../js/basic.js"></script>
+    <script src="../js/webservice.js"></script>
+    <script src="../js/My97DatePicker/WdatePicker.js"></script>
+    <script src="../js/alarm-manage.js"></script>
+</head>
+<body>
+    <section class="out-box">
+        <section class="content">
+            <div class="top-left corner"></div>
+            <div class="top-right corner"></div>
+            <div class="bottom-right corner"></div>
+            <div class="bottom-left corner"></div>
+            <section id="data-content">
+                <div class="toolbar">
+                    <label>开始时间</label><input type="text" id="start-time" onclick="WdatePicker()"><i class="fa fa-calendar" onclick="WdatePicker({el:'start-time'})"></i>
+                    <label>结束时间</label><input type="text" id="end-time" onclick="WdatePicker()"><i class="fa fa-calendar" onclick="WdatePicker({el:'end-time'})"></i>
+                    <button class="btn export-btn"><i class="fa fa-file-excel-o"></i>&nbsp;导出</button>
+                </div>
+                <section class="data-box"></section>
+            </section>
+        </section>
+    </section>
+    <div id="confirm-alarm">
+        <p class="title">确认警情<i class="fa fa-times" onclick="closeConfirmDiv();"></i></p>
+        <div class="basic-info">
+            <p class="dev-name">设备名称：<span></span></p>
+            <p class="dev-type">设备类型：<span></span></p>
+            <p class="alarm-level">告警等级：<span></span></p>
+            <p class="alarm-time">告警时间：<span></span></p>
+            <p class="alarm-info">告警信息：<span></span></p>
+        </div>
+        <div class="pic">
+            <img src="" >
+            <i class="fa fa-picture-o"></i>
+        </div>
+        <div class="sheet-info inactive">
+            <p class="create-sheet"><i class="fa fa-square-o fa-fw"></i> 生成工单</p>
+            <div class="system-defined">
+                <p class="term">限定时间<input type="text" id="term" onclick="WdatePicker()" spellcheck="false"><i class="fa fa-calendar" onclick="WdatePicker({el:'term'})"></i></p>
+                <p class="sheet-des">
+                    <label for="">工单备注</label>
+                    <textarea name="" id="sheet-des" spellcheck="false"></textarea>
+                </p>
+            </div>
+            <!-- 用户自定义属性 -->
+            <div class="user-defined"></div> 
+            <div class="shade"></div>   
+        </div>
+        <button class="btn">确 认</button>
+    </div>
+    <div id="body-shade"></div>
+</body>
+</html>

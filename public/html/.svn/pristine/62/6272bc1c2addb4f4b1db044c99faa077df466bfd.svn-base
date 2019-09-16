@@ -1,0 +1,380 @@
+body{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow: hidden;
+    font-family: 'Microsoft YaHei', 'Arial', '宋体', sans-serif;
+    font-size: 13px;
+    color: #fff;
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none;
+    background: url(../image/normal-bg.png) no-repeat center center fixed;
+    background-size: cover;
+}
+
+body > .out-box{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.content{
+    position: absolute;
+    top: 70px;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    border: 1px solid rgb(83, 187, 235);
+}
+
+.content .corner{
+    position: absolute;
+    width: 12px;
+    height: 20px;
+}
+
+.content .top-left{
+    top: -2px;
+    left: -2px;
+    border-top: 3px solid rgb(100, 255, 255);
+    border-left: 3px solid rgb(100, 255, 255);
+}
+
+.content .top-right{
+    top: -2px;
+    right: -2px;
+    border-top: 3px solid rgb(100, 255, 255);
+    border-right: 3px solid rgb(100, 255, 255);
+}
+
+.content .bottom-right{
+    bottom: -2px;
+    right: -2px;
+    border-bottom: 3px solid rgb(100, 255, 255);
+    border-right: 3px solid rgb(100, 255, 255);
+}
+
+.content .bottom-left{
+    bottom: -2px;
+    left: -2px;
+    border-bottom: 3px solid rgb(100, 255, 255);
+    border-left: 3px solid rgb(100, 255, 255);
+}
+
+ul, li{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+a{
+    text-decoration: none;
+    color: #fff;
+}
+
+.btn{
+    display: inline-block;
+    border: 1px solid rgb(83, 187, 235);
+    border-radius: 2px;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 0;
+    color: #fff;
+    cursor: pointer;
+    outline: none;
+}
+
+.btn:hover{
+    box-shadow: 0 0 4px rgb(83, 187, 235);
+    color: rgb(83, 187, 235);
+}
+
+input{
+    border: 0;
+    border-bottom: 1px solid #ddd;
+    background: transparent;
+    padding-left: 4px;
+    padding-right: 4px;
+    outline: none;
+    color: #fff;
+}
+
+.scroll-bar{
+    background: transparent;
+    position: absolute;
+}
+
+.scroll-bar .slider{
+    position: absolute;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.scroll-bar .slider:hover{
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.scroll-bar-right{
+    right: 2px;
+    top: 0;
+    bottom: 0;
+    width: 8px;
+}
+
+.scroll-bar-bottom{
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 8px;
+}
+
+.scroll-bar-right .slider{
+    left: 0;
+    right: 0;
+    top: 0;
+}
+
+.scroll-bar-bottom .slider{
+    left: 0;
+    top: 0;
+    bottom: 0;
+}
+
+header{
+    height: 70px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+header .title{
+    margin: 0;
+    font-size: 24px;
+    background: url(../image/logo.png) no-repeat;
+    background-size: 140px;
+    background-position: 50px center;
+    height: 70px;
+    line-height: 70px;
+    padding-left: 200px;
+    letter-spacing: 2px;
+    width: 200px;
+}
+
+header ul{
+    margin-top: -50px;
+    margin-left: 500px;
+    width: 840px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+header ul li{
+    display: inline-block;
+    width: 80px;
+    height: 30px;
+    margin-left: 20px;
+    margin-right: 20px;
+    text-align: center;
+    line-height: 30px;
+}
+
+header ul li.active, 
+header ul li:hover{
+    border-bottom: 3px solid rgb(83, 187, 235);
+}
+
+header ul li a{
+    display: inline-block;
+    width: 80px;
+    height: 30px;
+    color: #b5c0ea;
+}
+
+header ul li.active a, 
+header ul li:hover a, 
+header .user a:hover{
+    color: rgb(83, 187, 235);
+}
+
+header .user{
+    position: absolute;
+    right: 30px;
+    top: 0;
+    height: 70px;
+    line-height: 70px;
+    font-size: 14px;
+    margin: 0;
+}
+
+#area-dev, #left-menu, .left-list{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 18%;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+#left-menu{
+    width: 14%;
+    font-size: 15px;
+    overflow: hidden;
+}
+
+#area-dev li{
+    line-height: 36px;
+    cursor: default;
+    text-indent: 6px;
+}
+
+#left-menu li{
+    line-height: 50px;
+    cursor: default;
+    text-align: center;
+}
+
+#area-dev li p, 
+#left-menu li p{
+    margin: 0;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+#area-dev li > p:hover, 
+#left-menu li > p:hover{
+    background: rgba(255, 255, 255, 0.1);
+}
+
+#left-menu li.active > p{
+    background: rgba(255, 255, 255, 0.1);
+    color: rgb(83, 187, 235);
+}
+
+#left-menu .sec-level{
+    display: none;
+    font-size: 13px;
+    text-indent: 56px;
+    color: #aaa;
+}
+
+#left-menu .sec-level li{
+    line-height: 40px;
+}
+
+.left-list .title{
+    margin: 0;
+    height: 40px;
+    line-height: 50px;
+    border-bottom: 1px solid #ddd;
+    width: 90%;
+    margin-left: 5%;
+    color: rgb(83, 187, 235);
+    text-indent: 10px;
+    position: relative;
+    font-size: 14px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.left-list .title i{
+    position: absolute;
+    right: 10px;
+    bottom: 7px;
+    color: rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.left-list .title i:hover{
+    color: rgb(83, 187, 235);
+}
+
+.abnormal-light, .normal-light{
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgb(216, 0, 0);
+    vertical-align: -2px;
+}
+
+.normal-light{
+    background: rgb(81, 220, 46);
+}
+
+#body-shade{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    z-index: 98;
+}
+
+@media screen and (max-width: 1600px){
+    body, input{
+        font-size: 12px;
+    }
+
+    .content{
+        top: 50px;
+    }
+
+    header{
+        height: 50px;
+    }
+
+    header .title{
+        height: 50px;
+        line-height: 50px;
+        font-size: 20px;
+        background-size: 120px;
+        padding-left: 180px;
+    }
+
+    header ul{
+        margin-top: -40px;
+        margin-left: 400px;
+        width: 770px;
+        font-size: 15px;
+    }
+    
+    header ul li{
+        height: 26px;
+        margin-left: 15px;
+        margin-right: 15px;
+        line-height: 26px;
+    }
+    
+    header ul li a{
+        height: 26px;
+    }
+
+    header .user{
+        height: 50px;
+        line-height: 50px;
+        font-size: 13px;
+    }
+
+    #area-dev li{
+        line-height: 30px;
+    }
+
+    #left-menu{
+        font-size: 14px;
+    }
+
+    #left-menu .sec-level{
+        font-size: 12px;
+    }
+}

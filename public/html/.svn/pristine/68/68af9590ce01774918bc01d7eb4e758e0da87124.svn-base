@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>AVCON运维管理系统</title>
+    <link rel="stylesheet" href="../font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/basic.css">
+    <link rel="stylesheet" href="../css/sheet-manage.css">
+    <script src="../js/const-defined.js"></script>
+    <script src="../js/scroll-bar.js"></script>
+    <script src="../js/basic.js"></script>
+    <script src="../js/webservice.js"></script>
+    <script src="../js/My97DatePicker/WdatePicker.js"></script>
+    <script src="../js/sheet-manage.js"></script>
+    <script src="../js/new-sheet.js"></script>
+    <script src="../js/todo-sheet.js"></script>
+    <script src="../js/all-sheet.js"></script>
+</head>
+<body>
+    <section class="out-box">
+        <section class="content">
+            <div class="top-left corner"></div>
+            <div class="top-right corner"></div>
+            <div class="bottom-right corner"></div>
+            <div class="bottom-left corner"></div>
+            <div id="left-menu">
+                <ul>
+                    <li class="active"><p>新建工单</p></li>
+                    <li><p>待办工单</p></li>
+                    <li><p>工单维护</p></li>
+                </ul>
+            </div>
+            <section id="data-content">
+                <section id="new-sheet">
+                    <div class="toolbar">
+                        <button class="btn"><i class="fa fa-file-text-o"></i> 生成工单</button>
+                    </div>
+                    <section class="data-box"></section>
+                </section>
+                <section id="to-do-sheet">
+                    <div class="toolbar"></div>
+                    <section class="data-box"></section>
+                </section>
+                <section id="maintenance">
+                    <div class="toolbar"></div>
+                    <section class="data-box"></section>
+                </section>
+            </section>
+        </section>
+    </section>
+    <!-- 生成工单对话框 -->
+    <div id="create-sheet-div">
+        <p class="title">生成工单<i class="fa fa-times" onclick="closecreateSheetDiv();"></i></p>
+        <div class="basic-info"></div>
+        <div class="sheet-info inactive">
+            <div class="system-defined">
+                <p class="term">限定时间<input type="text" id="term" onclick="WdatePicker()"><i class="fa fa-calendar" onclick="WdatePicker({el:'term'})"></i></p>
+                <p class="sheet-des">
+                    <label for="">工单备注</label>
+                    <textarea name="" id="sheet-des" spellcheck="false"></textarea>
+                </p>
+            </div>
+            <!-- 用户自定义属性 -->
+            <div class="user-defined"></div> 
+        </div>
+        <button class="btn">确 认</button>
+    </div>
+    <!-- 修改工单对话框 -->
+    <div id="modify-status">
+        <p class="title">工单操作<i class="fa fa-times" onclick="closeModifyStatusDiv();"></i></p>
+        <div id="status-list"></div>
+        <div id="person-list"></div>
+        <div>
+            <label for="">限定时间</label><input type="text" id="term1" onclick="WdatePicker()"><i class="fa fa-calendar" onclick="WdatePicker({el:'term1'})"></i>
+        </div>
+        <div>
+            <label for="modify-des">备注</label>
+            <textarea id="modify-des"></textarea>
+        </div>
+        <button class="btn">执  行</button>
+    </div>
+    <!-- 查看记录对话框 -->
+    <div id="record">
+        <p class="title">修改记录<i class="fa fa-times" onclick="closeDetailInfoDiv();"></i></p>
+        <div class="record-box"></div>
+    </div>
+    <div id="body-shade"></div>
+</body>
+</html>

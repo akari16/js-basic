@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>工单页面</title>
+    <link rel="stylesheet" href="../js/layui/css/layui.css">
+</head>
+
+<body class="">
+    <div style="height: 20px;"></div>
+    <fieldset class="layui-elem-field" id="orderinfo" style="margin: 20px; padding: 20px;">
+        <legend>{{orderinfo.order}}</legend>
+        <span class="layui-badge" v-if="isDelay">延期</span>
+        <div class="layui-form-item layui-form">
+            <label class="layui-form-label">报修人员</label>
+            <div class="layui-input-inline">
+                <input type="text" class="layui-input" v-model="orderinfo.alloctor" readonly>
+            </div>
+            <label class="layui-form-label">限制期限</label>
+            <div class="layui-input-inline">
+                <input type="text" class="layui-input" v-model="getTerm()" readonly>
+            </div>
+        </div>
+        <div class="layui-form-item layui-form">
+            <label class="layui-form-label">故障设备</label>
+            <div class="layui-input-block">
+                <table class="layui-table">
+                    <tr style="background-color:#EEEEEE">
+                        <td>设备名称</td>
+                        <td>厂商</td>
+                        <td>承建方</td>
+                        <td>建设时间</td>
+                        <td>故障描述</td>
+                    </tr>
+                    <tr v-for="(devinfo,i) in devlist">
+                        <td>{{devinfo.name}}</td>
+                        <td>{{devinfo.producer}}</td>
+                        <td>{{devinfo.builder}}</td>
+                        <td>{{filterTime(devinfo.buildtime)}}</td>
+                        <td>{{devinfo.alarminfo}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="layui-form-item layui-form">
+            <label class="layui-form-label">工单流程</label>
+            <div class="layui-input-block">
+                <table class="layui-table">
+                    <tr style="background-color:#EEEEEE">
+                        <td>处理人</td>
+                        <td>操作</td>
+                        <td>时间</td>
+                        <td>意见</td>
+                    </tr>
+                    <tr v-for="(loginfo,i) in orderlog">
+                        <td>{{loginfo.username}}</td>
+                        <td>{{statusAction(loginfo.oldstatus, loginfo.status)}}</td>
+                        <td>{{filterTime(loginfo.time)}}</td>
+                        <td>{{loginfo.content}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text" v-if="isCanAction">
+            <label class="layui-form-label">操作意见</label>
+            <div class="layui-input-block">
+                <textarea class="layui-textarea" placeholder="请输入内容" v-model="actionContent"></textarea>
+            </div>
+        </div>
+        <div style="text-align: center" v-if="isWaitRepair">
+            <button class="layui-btn" onclick="acceptRepair()">确认维修</button>
+            <button class="layui-btn layui-btn-primary" onclick="rejectRepair()">不维修</button>
+        </div>
+        <div style="text-align: center" v-if="isRepairing">
+            <button class="layui-btn" onclick="completeRepair()">完成维修</button>
+        </div>
+    </fieldset>
+    
+
+    <script src="../js/base64.js"></script>
+    <script src="../js/layui/layui.js"></script>
+    <script src="../js/vue.js"></script>
+    <script src="../js/const-defined.js"></script>
+    <script src="../js/webservice-re.js"></script>
+    <script>
+        String.prototype.trim=function(){
+        　　return this.replace(/(^\s*)|(\s*$)/g, "");
+        }
+
+        function getQueryString() {
+            var qs = location.search.substr(1), args = {}, items = qs.length ? qs.split("&") : [], item = null, len = items.length;
+            for (var i = 0; i < len; i++) {
+                var index = items[i].indexOf('=');
+                if (index < 0) {
+                    continue;
+                }
+
+                var name = items[i].substr(0, index);
+                var value = items[i].substr(index + 1);
+                if (name) {
+                    args[name] = value;
+                }
+            }
+            return args;
+        }
+
+        var argparams = {};
+
+        function init() {
+            argparams = getQueryString();
+            orderinfo = JSON.parse(base.decode(argparams.orderinfo));
+            orderinfo.order = "工单 [ " + orderinfo.orderid + " ]";
+            //vminfo.orderinfo = orderinfo;
+            vminfo.$set(vminfo, "orderinfo", orderinfo);
+
+            WebService.getDevinfos(localStorage.maintenanceToken, vminfo.orderinfo.devids, function (_retcode, _data) {
+                if (!_retcode) {
+                    //self.location = "login.html"
+                    //TODO 展示失败页面
+                    return;
+                }
+
+                if(!_data) {
+                    return;
+                }
+
+                vminfo.$set(vminfo, "devlist", []);
+                for (i = 0; i < _data.length; i++) {
+                    vminfo.$set(vminfo.devlist, i, _data[i]);
+                }
+                //vminfo.devlist = _data;
+            });
+
+            WebService.getOrderRecord(localStorage.maintenanceToken, vminfo.orderinfo.orderid, function (_retcode, _data) {
+                if (!_retcode) {
+                    //self.location = "login.html"
+                    //TODO 展示失败页面
+                    return;
+                }
+
+                if(!_data) {
+                    return;
+                }
+
+                vminfo.$set(vminfo, "orderlog", []);
+                for (i = 0; i < _data.length; i++) {
+                    vminfo.$set(vminfo.orderlog, i, _data[i]);
+                }
+                //vminfo.orderlog = _data;
+                console.log(_data);
+            });
+        } 
+
+        function add0(_m) { return _m < 10 ? '0' + _m : _m; }
+        function format(_timestamp, _formate) {
+            var time = new Date(_timestamp);            //_timestamp要int型
+            var y = time.getFullYear();
+            var m = time.getMonth() + 1;
+            var d = time.getDate();
+            var h = time.getHours();
+            var mm = time.getMinutes();
+            var s = time.getSeconds();
+            if (_formate == 'date') {
+                return y + '-' + add0(m) + '-' + add0(d);
+            } else if (_formate == 'time') {
+                return add0(h) + ':' + add0(mm) + ':' + add0(s);
+            } else {
+                return y + '-' + add0(m) + '-' + add0(d) + ' ' + add0(h) + ':' + add0(mm) + ':' + add0(s);
+            }
+        }
+
+        vminfo = new Vue({
+            el: "#orderinfo",
+            data: {
+                actionContent:"",
+                orderinfo: {},
+                devlist: [],
+                orderlog: []
+            },
+            methods: {
+                getTerm() {
+                    return format(this.orderinfo.term * 1000)
+                },
+                filterTime(_timestamp) {
+                    return format(_timestamp * 1000)
+                },
+                statusAction(_oldStatus, _newStatus) {
+                    var action = "未知操作"
+                    if (_oldStatus == "-1" && _newStatus == "0") {
+                        action = "创建派发工单";
+                    } else if (_oldStatus == "0" && _newStatus == "1") {
+                        action = "工单拒绝维修";
+                    } else if (_oldStatus == "1" && _newStatus == "0") {
+                        action = "重启工单流程";
+                    } else if (_oldStatus == "0" && _newStatus == "2") {
+                        action = "工单确认维修";
+                    } else if (_oldStatus == "2" && _newStatus == "3") {
+                        action = "工单维修完成";
+                    } else if (_oldStatus == "3" && _newStatus == "4") {
+                        action = "工单确认关闭";
+                    } else if (_oldStatus == "3" && _newStatus == "0") {
+                        action = "重启工单流程";
+                    }
+                    return action;
+                },
+                
+            },
+            computed: {
+                isDelay: {
+                    get: function () {
+                        var timestamp = Date.parse(new Date());
+                        return (parseInt(timestamp) / 1000) > this.orderinfo.term ? true : false;
+                    }
+                },
+                isWaitRepair: {
+                    get: function () {
+                        return this.orderinfo.status == "0";
+                    }
+                },
+                isRepairing: {
+                    get: function () {
+                        return this.orderinfo.status == "2";
+                    }
+                },
+                isCanAction: {
+                    get: function () {
+                        return this.orderinfo.status == "0" || this.orderinfo.status == "2";
+                    }
+                }
+            }
+        });
+
+
+
+        function acceptRepair() {
+            WebService.acceptRepair(localStorage.maintenanceToken, vminfo.orderinfo.orderid, vminfo.actionContent, "", function (_retcode, _data) {
+                
+            });
+
+            var index = parent.layer.getFrameIndex(window.name);
+            parent.layer.close(index);//关闭当前页 
+        }
+
+        function rejectRepair() {
+            if (vminfo.actionContent.trim().length < 10) {
+                layer.alert("拒绝维修必须填写操作意见（至少10个字）！", {
+                    title: '提示'
+                    })
+                return;
+            }
+
+            WebService.rejectRepair(localStorage.maintenanceToken, vminfo.orderinfo.orderid, vminfo.actionContent, "", function (_retcode, _data) {
+                
+            });
+
+            var index = parent.layer.getFrameIndex(window.name);
+            parent.layer.close(index);//关闭当前页 
+        }
+
+        function completeRepair() {
+            WebService.completeRepair(localStorage.maintenanceToken, vminfo.orderinfo.orderid, vminfo.actionContent, "", function (_retcode, _data) {
+                
+            });
+
+            var index = parent.layer.getFrameIndex(window.name);
+            parent.layer.close(index);//关闭当前页 
+        }
+
+        init();
+        layui.use(['element','layer'], function () {
+            var element = layui.element;
+        });
+    </script>
+</body>
+
+</html>

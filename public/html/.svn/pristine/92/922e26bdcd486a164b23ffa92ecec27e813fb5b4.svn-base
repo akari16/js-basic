@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>AVCON运维管理系统</title>
+    <link rel="stylesheet" href="../font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/basic.css">
+    <link rel="stylesheet" href="../css/login.css">
+    <script src="../js/const-defined.js"></script>
+    <script src="../js/basic.js"></script>
+    <script src="../js/login.js"></script>
+    <script src="../js/md5.min.js"></script>
+    <script src="../js/webservice.js"></script>
+</head>
+<body>
+    <section class="out-box">
+        <section class="content-box">
+            <h1><img src="../image/logo.png"> 运维管理系统</h1>
+            <section class="login-box">
+                <div class="pw-login">
+                    <p>
+                        <label for="userid"><i class="fa fa-user"></i></label>
+                        <input type="text" id="userid" spellcheck="false">  
+                    </p>
+                    <p>
+                        <label for="password"><i class="fa fa-lock"></i></label>  
+                        <input type="password" id="password">
+                    </p>
+                    <p class="savePw"><i class="fa fa-square-o fa-fw"></i> 记住密码</p>
+                    <p><button class="login-btn">登 录</button></p>
+                </div>
+            </section>  
+        </section>
+    </section>
+</body>
+</html>

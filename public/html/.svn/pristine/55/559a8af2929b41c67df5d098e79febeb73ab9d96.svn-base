@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>AVCON运维管理系统</title>
+    <link rel="stylesheet" href="../font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/basic.css">
+    <link rel="stylesheet" href="../css/operation-data.css">
+    <script src="../js/const-defined.js"></script>
+    <script src="../js/scroll-bar.js"></script>
+    <script src="../js/basic.js"></script>
+    <script src="../js/operation-data.js"></script>
+</head>
+<body>
+    <section class="out-box">
+        <section class="content">
+            <div class="top-left corner"></div>
+            <div class="top-right corner"></div>
+            <div class="bottom-right corner"></div>
+            <div class="bottom-left corner"></div>
+            <div id="left-menu">
+                <ul>
+                    <li class="active"><p>工单数据</p></li>
+                    <li><p>告警数据</p></li>
+                    <li><p>设备数据</p></li>
+                    <li><p>数据分析</p></li>
+                </ul>
+            </div>
+            <section id="data-content">
+            </section>
+        </section>
+    </section>
+</body>
+</html>
