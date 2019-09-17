@@ -1,8 +1,27 @@
+* {
+  margin: 0;
+  padding: 0;
+}
 body {
-  padding: 50px;
+  padding: 0;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
-  color: #00B7FF;
+  color: #00b7ff;
+}
+.container {
+  padding: 20px 0 0 200px;
+}
+.slider-menu {
+  position: fixed;
+  right: 20px;
+  top: 20px;
+  z-index: 200;
+  width: 35%;
+  height: 100%;
+  border-left: 3px solid #f2f2f2;
+}
+.slider-menu .list-item{
+  padding: 0 0 0 60px;
 }
