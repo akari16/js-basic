@@ -14,7 +14,7 @@ a {
   margin: 0;
 }
 .content {
-  padding: 20px 0 0 200px;
+  padding: 20px 0 0 150px;
 }
 .slider-menu {
   position: fixed;
@@ -26,5 +26,5 @@ a {
 }
 .slider-menu .list-item{
   width: 100%;
-  padding: 20px 0 0 40px;
+  padding: 40px 0 0 40px;
 }
