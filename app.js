@@ -14,6 +14,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static('views'));
 
 //配置ejs视图的目录
 app.set("views", __dirname + "/views");    //    '/views代表存放视图的目录
