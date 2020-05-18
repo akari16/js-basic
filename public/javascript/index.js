@@ -2,27 +2,7 @@ var menuList = [
   {
     id: "1",
     name: "javascript简介",
-    href: "depart1.html"
-  },
-  {
-    id: "2",
-    name: "在HTML中使用javaScript",
-    href: "depart1.html"
-  },
-  {
-    id: "3",
-    name: "基本概念",
-    href: "depart1.html"
-  },
-  {
-    id: "4",
-    name: "简介",
-    href: "depart1.html"
-  },
-  {
-    id: "5",
-    name: "操作符",
-    href: "depart1.html"
+    href: "index.html"
   },
 ]
 
